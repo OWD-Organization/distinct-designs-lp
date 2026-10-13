@@ -1783,19 +1783,19 @@ h4 {
      --------------------------------------------------------------- */
 
   /* ------------------------------------------------------------------
-     REPLACE THIS before the page goes live.
+     GoHighLevel inbound webhook, from the Workflow's Inbound Webhook
+     trigger. The last path segment is the webhook id, which GHL only
+     generates once the trigger has been saved: copying the URL before
+     saving yields one ending in the literal "undefined", which silently
+     accepts every POST and delivers none of them.
 
-     The last path segment must be the webhook id GHL generates. Get it
-     from the Workflow with the Inbound Webhook trigger: save the
-     workflow first, then copy the URL.
-
-     Be careful verifying this. The endpoint answers
+     Never verify this URL by its response. The endpoint answers
      {"status":"Success: test request received"} with HTTP 200 for ANY
-     id, including ones that do not exist, so a success response proves
-     nothing. The only real check is that a contact appears in GHL.
+     id, including ones that do not exist. The only real check is that
+     the request shows up in GHL.
      ------------------------------------------------------------------ */
   var LEAD_WEBHOOK_URL =
-    "https://services.leadconnectorhq.com/hooks/M0maz1S3Bhkgiw0ntdG7/webhook-trigger/undefined";
+    "https://services.leadconnectorhq.com/hooks/M0maz1S3Bhkgiw0ntdG7/webhook-trigger/odpteyVuzrrOynCMfVXw";
 
   var leadForm = document.getElementById("lead-form");
   var leadFormNote = document.getElementById("lead-form-note");
