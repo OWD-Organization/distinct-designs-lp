@@ -1795,6 +1795,14 @@ h4 {
   var LEAD_WEBHOOK_URL =
     "https://services.leadconnectorhq.com/hooks/M0maz1S3Bhkgiw0ntdG7/webhook-trigger/odpteyVuzrrOynCMfVXw";
 
+  /* Where a successful submit hands off. Root-relative, so it follows
+     whatever domain the page is served from.
+
+     NOTE for the GoHighLevel copies: this resolves against the GHL domain,
+     so a /thank-you/ page has to exist there too, or this URL has to be
+     changed to an absolute one before those pages go live. */
+  var THANK_YOU_URL = "/thank-you/";
+
   var leadForm = document.getElementById("lead-form");
   var leadFormNote = document.getElementById("lead-form-note");
 
@@ -1848,6 +1856,17 @@ h4 {
       })
         .then(function (response) {
           if (!response.ok) throw new Error("HTTP " + response.status);
+
+          // Only the hero-form variants hand off to the thank-you page. The
+          // standard pages keep their inline confirmation, because their form
+          // sits at the foot of a long page that the visitor chose to read.
+          // Branching on the variant at runtime, rather than shipping two
+          // different files, keeps all six copies of this script identical.
+          if (variant === "hero-form") {
+            window.location.assign(THANK_YOU_URL);
+            return;
+          }
+
           leadFormNote.textContent =
             "Thank you. Nick's team will reach out within one business day.";
           leadForm.reset();

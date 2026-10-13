@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Thank You | Distinct Designs Construction</title>
-<meta name="description" content="Thank you for reaching out to Distinct Designs Construction. Our team will be in touch shortly.">
+<meta name="description" content="Thank you for reaching out to Distinct Designs Construction. Watch the short welcome video while our team prepares to contact you.">
 
 <!-- A confirmation page has no business in search results, and indexing it
-     would also let people land here without ever filling the form. -->
+     would let people land here without ever filling the form. -->
 <meta name="robots" content="noindex, nofollow">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,11 +19,17 @@
      independently deployable and lets this file be pasted anywhere as-is. -->
 <style>
 :root {
+  --color-bg: #ffffff;
+  --color-charcoal: #0f172a;
   --color-charcoal-soft: #070614;
+  --color-text: #0f172a;
+  --color-text-muted: #364151;
   --color-text-on-dark: #ffffff;
   --color-text-on-dark-muted: #d1dae5;
   --color-clay: #c8ab72;
+  --color-clay-dark: #a98a50;
   --color-on-accent: #0f172a;
+  --color-hairline: #d1dae5;
   --color-hairline-on-dark: rgba(255, 255, 255, 0.16);
 
   --font-display: "Cormorant Garamond", "Times New Roman", serif;
@@ -31,15 +37,20 @@
 
   --fs-hero: clamp(2.35rem, 4.4vw + 0.75rem, 4.25rem);
   --fs-body-lg: 1.2rem;
+  --fs-small: 0.9rem;
   --fs-eyebrow: 0.8rem;
 
+  --space-3xs: 0.25rem;
   --space-2xs: 0.5rem;
   --space-xs: 0.75rem;
   --space-sm: 1.25rem;
   --space-md: 2rem;
   --space-lg: 3.25rem;
+  --space-xl: 5rem;
 
+  --content-max: 1360px;
   --content-narrow: 760px;
+  --nav-h: 71px;
   --radius: 2px;
   --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -48,64 +59,91 @@
 
 body {
   margin: 0;
-  min-height: 100vh;
-  min-height: 100dvh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-lg) var(--space-sm);
-  background-color: var(--color-charcoal-soft);
-  color: var(--color-text-on-dark);
+  background-color: var(--color-bg);
+  color: var(--color-text);
   font-family: var(--font-body);
   font-size: 1.0625rem;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
 }
 
+img { max-width: 100%; display: block; }
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  background: var(--color-charcoal);
+  color: var(--color-text-on-dark);
+  padding: var(--space-xs) var(--space-sm);
+  z-index: 100;
+}
+.skip-link:focus { left: var(--space-sm); top: var(--space-sm); }
+
+/* ---------- Nav ---------- */
+.site-nav {
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: 0 var(--space-sm);
+  max-width: var(--content-max);
+  margin: 0 auto;
+}
+.site-nav__logo img { height: 40px; width: auto; }
+.nav-call {
+  display: inline-block;
+  padding: var(--space-2xs) var(--space-sm);
+  border: 1px solid var(--color-charcoal);
+  border-radius: var(--radius);
+  color: var(--color-charcoal);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background-color 0.3s var(--ease-editorial),
+              color 0.3s var(--ease-editorial);
+}
+.nav-call:hover, .nav-call:focus-visible {
+  background-color: var(--color-charcoal);
+  color: var(--color-text-on-dark);
+}
+
+/* ---------- Thank you ---------- */
 .thanks {
-  width: 100%;
-  max-width: var(--content-narrow);
+  background-color: var(--color-charcoal-soft);
+  color: var(--color-text-on-dark);
+  padding: var(--space-xl) var(--space-sm);
   text-align: center;
 }
+.thanks__inner { max-width: var(--content-narrow); margin: 0 auto; }
 
 .thanks__mark {
-  width: 64px;
-  height: 64px;
-  margin: 0 auto var(--space-md);
+  width: 56px; height: 56px;
+  margin: 0 auto var(--space-sm);
   border: 1px solid var(--color-clay);
   border-radius: 50%;
-  display: grid;
-  place-items: center;
+  display: grid; place-items: center;
 }
-
 .thanks__mark svg {
-  width: 26px;
-  height: 26px;
-  stroke: var(--color-clay);
-  stroke-width: 1.5;
-  fill: none;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  width: 24px; height: 24px;
+  stroke: var(--color-clay); stroke-width: 1.5; fill: none;
+  stroke-linecap: round; stroke-linejoin: round;
 }
-
 .thanks__eyebrow {
   margin: 0 0 var(--space-sm);
-  font-size: var(--fs-eyebrow);
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-size: var(--fs-eyebrow); font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
   color: var(--color-clay);
 }
-
 .thanks__title {
   margin: 0 0 var(--space-sm);
   font-family: var(--font-display);
-  font-size: var(--fs-hero);
-  font-weight: 300;
-  line-height: 1.08;
-  letter-spacing: -0.01em;
+  font-size: var(--fs-hero); font-weight: 300;
+  line-height: 1.08; letter-spacing: -0.01em;
 }
-
 .thanks__body {
   margin: 0 auto var(--space-lg);
   max-width: 48ch;
@@ -113,27 +151,59 @@ body {
   color: var(--color-text-on-dark-muted);
 }
 
-.thanks__back {
-  display: inline-block;
-  padding: var(--space-xs) var(--space-md);
+/* The video is vertical (Vimeo reports 240x426, a 9:16 source). Sizing by
+   height keeps it from running past the fold on a laptop; width follows from
+   the aspect ratio, so it is never letterboxed with side bars the way a 16:9
+   box would do to it. */
+.video {
+  aspect-ratio: 9 / 16;
+  height: min(70vh, 620px);
+  width: auto;
+  margin: 0 auto var(--space-lg);
   border: 1px solid var(--color-hairline-on-dark);
   border-radius: var(--radius);
-  color: var(--color-text-on-dark);
-  font-size: 0.95rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  text-decoration: none;
-  transition: border-color var(--ease-editorial) 0.3s,
-              background-color var(--ease-editorial) 0.3s,
-              color var(--ease-editorial) 0.3s;
+  overflow: hidden;
+  background-color: #000;
+  max-width: 100%;
+}
+.video iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+.thanks__next {
+  margin: 0 auto var(--space-md);
+  max-width: 52ch;
+  color: var(--color-text-on-dark-muted);
+}
+.thanks__cta {
+  display: inline-block;
+  padding: var(--space-xs) var(--space-md);
+  background-color: var(--color-clay);
+  border: 1px solid var(--color-clay);
+  border-radius: var(--radius);
+  color: var(--color-on-accent);
+  font-weight: 700; letter-spacing: 0.02em; text-decoration: none;
+  transition: background-color 0.3s var(--ease-editorial),
+              border-color 0.3s var(--ease-editorial);
+}
+.thanks__cta:hover, .thanks__cta:focus-visible {
+  background-color: var(--color-clay-dark);
+  border-color: var(--color-clay-dark);
 }
 
-.thanks__back:hover,
-.thanks__back:focus-visible {
-  background-color: var(--color-clay);
-  border-color: var(--color-clay);
-  color: var(--color-on-accent);
+/* ---------- Footer ---------- */
+.site-footer {
+  background-color: var(--color-charcoal);
+  color: var(--color-text-on-dark-muted);
+  padding: var(--space-lg) var(--space-sm);
+  font-size: var(--fs-small);
 }
+.site-footer__inner {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  display: flex; flex-wrap: wrap; gap: var(--space-sm);
+  align-items: center; justify-content: space-between;
+}
+.site-footer a { color: var(--color-text-on-dark); }
+.site-footer p { margin: 0; }
 
 :focus-visible { outline: 2px solid var(--color-clay); outline-offset: 3px; }
 
@@ -143,29 +213,77 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+@media (max-width: 600px) {
+  .thanks { padding: var(--space-lg) var(--space-sm); }
+  .video { height: min(62vh, 520px); }
+  .site-footer__inner { justify-content: center; text-align: center; }
+}
 </style>
 </head>
 <body>
 
-<main class="thanks">
+<a class="skip-link" href="#main">Skip to content</a>
 
-  <div class="thanks__mark" aria-hidden="true">
-    <svg viewBox="0 0 24 24" role="presentation"><path d="M4 12.5 9.5 18 20 6.5"/></svg>
+<header class="site-nav">
+  <a class="site-nav__logo" href="https://distinctdesignsconstruction.com/">
+    <img src="images/logo-distinct-designs.webp"
+         alt="Distinct Designs Construction" width="350" height="128">
+  </a>
+  <a class="nav-call" href="tel:+17602214290">Call (760) 221-4290</a>
+</header>
+
+<main id="main" class="thanks">
+  <div class="thanks__inner">
+
+    <div class="thanks__mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" role="presentation"><path d="M4 12.5 9.5 18 20 6.5"/></svg>
+    </div>
+
+    <p class="thanks__eyebrow">Request Received</p>
+
+    <h1 class="thanks__title">Thank You</h1>
+
+    <p class="thanks__body">
+      We have received your request. Watch the short message below, and our
+      team will be in touch within one business day.
+    </p>
+
+    <!-- Vimeo 1188183562, the video used on
+         https://distinctdesignsconstruction.com/guide-thank-you/
+
+         IMPORTANT: this video is domain-restricted. Vimeo's oEmbed reports
+         domain_status_code 403 for any domain other than the client's own,
+         so until the domains that serve this page are added under the
+         video's Privacy > "Where can this be embedded?" settings, the player
+         shows a privacy error instead of the film.
+
+         No autoplay: browsers block unmuted autoplay anyway, and a video
+         that starts talking on its own is hostile on a confirmation page. -->
+    <div class="video">
+      <iframe
+        src="https://player.vimeo.com/video/1188183562?title=0&amp;byline=0&amp;portrait=0&amp;playsinline=1"
+        title="A message from Distinct Designs Construction"
+        loading="lazy"
+        allow="fullscreen; picture-in-picture"
+        allowfullscreen></iframe>
+    </div>
+
+    <p class="thanks__next">
+      Prefer to talk now? Call us and we will walk you through the next steps.
+    </p>
+
+    <a class="thanks__cta" href="tel:+17602214290">Call (760) 221-4290</a>
+
   </div>
-
-  <p class="thanks__eyebrow">Request Received</p>
-
-  <h1 class="thanks__title">Thank You</h1>
-
-  <p class="thanks__body">
-    We have received your request. Our team will be in touch shortly.
-  </p>
-
-  <!-- The client's own site, not "/": on Vercel that is the internal noindex
-       hub listing every landing page, which is not somewhere to send a prospect. -->
-  <a class="thanks__back" href="https://distinctdesignsconstruction.com/">Return to Distinct Designs Construction</a>
-
 </main>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <p>Distinct Designs Construction &middot; Licensed CA General Contractor #1145786</p>
+    <p><a href="https://distinctdesignsconstruction.com/">distinctdesignsconstruction.com</a></p>
+  </div>
+</footer>
 
 </body>
 </html>
