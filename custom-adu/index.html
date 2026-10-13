@@ -411,6 +411,12 @@
             <option value="500k-plus">$500K+</option>
           </select>
         </div>
+        <!-- Honeypot: off-screen and hidden from assistive tech, so only a bot
+             fills it. Submissions carrying a value here are dropped. -->
+        <div class="lead-form__trap" aria-hidden="true">
+          <label for="company_website">Company website</label>
+          <input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off">
+        </div>
         <div class="lead-form__row lead-form__row--full">
           <label for="message">Tell Us About Your Project</label>
           <textarea id="message" name="message" rows="4"></textarea>

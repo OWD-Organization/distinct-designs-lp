@@ -153,14 +153,37 @@
   }
 
   /* ---------------------------------------------------------------
-     Lead form handling
-     Note: no backend wired up yet. Replace this handler's success
-     branch with a real fetch() to your CRM/email endpoint.
+     Lead form handling: posts to a GoHighLevel inbound webhook
      --------------------------------------------------------------- */
+
+  /* ------------------------------------------------------------------
+     REPLACE THIS before the page goes live.
+
+     The last path segment must be the webhook id GHL generates. Get it
+     from the Workflow with the Inbound Webhook trigger: save the
+     workflow first, then copy the URL.
+
+     Be careful verifying this. The endpoint answers
+     {"status":"Success: test request received"} with HTTP 200 for ANY
+     id, including ones that do not exist, so a success response proves
+     nothing. The only real check is that a contact appears in GHL.
+     ------------------------------------------------------------------ */
+  var LEAD_WEBHOOK_URL =
+    "https://services.leadconnectorhq.com/hooks/M0maz1S3Bhkgiw0ntdG7/webhook-trigger/undefined";
+
   var leadForm = document.getElementById("lead-form");
   var leadFormNote = document.getElementById("lead-form-note");
 
   if (leadForm && leadFormNote) {
+    var submitBtn = leadForm.querySelector('button[type="submit"]');
+    var submitLabel = submitBtn ? submitBtn.textContent : "";
+
+    // Which page and which A/B variant this lead came from. Read from the
+    // document so this file stays identical across every page.
+    var article = document.querySelector("article[id]");
+    var pageId = article ? article.id : "unknown";
+    var variant = document.querySelector(".hero--form") ? "hero-form" : "standard";
+
     leadForm.addEventListener("submit", function (event) {
       event.preventDefault();
 
@@ -170,9 +193,53 @@
         return;
       }
 
-      // TODO: wire to real submission endpoint (CRM, email service, etc.)
-      leadFormNote.textContent = "Thank you. Nick's team will reach out within one business day.";
-      leadForm.reset();
+      // Bots fill every field they find; a real person never sees this one.
+      var trap = leadForm.querySelector('input[name="company_website"]');
+      if (trap && trap.value) return;
+
+      var budget = leadForm.budget;
+      var payload = {
+        name: leadForm.name.value.trim(),
+        email: leadForm.email.value.trim(),
+        phone: leadForm.phone.value.trim(),
+        budget: budget.options[budget.selectedIndex].text,
+        budget_value: budget.value,
+        message: leadForm.message.value.trim(),
+        page: pageId,
+        variant: variant,
+        page_url: window.location.href,
+        submitted_at: new Date().toISOString()
+      };
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Sending...";
+      }
+      leadFormNote.textContent = "";
+
+      fetch(LEAD_WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      })
+        .then(function (response) {
+          if (!response.ok) throw new Error("HTTP " + response.status);
+          leadFormNote.textContent =
+            "Thank you. Nick's team will reach out within one business day.";
+          leadForm.reset();
+        })
+        .catch(function () {
+          // Keep what they typed: making someone retype a long message is the
+          // fastest way to lose the lead.
+          leadFormNote.textContent =
+            "Something went wrong sending your message. Please call (760) 221-4290 and we will take care of it.";
+        })
+        .then(function () {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = submitLabel;
+          }
+        });
     });
   }
 })();

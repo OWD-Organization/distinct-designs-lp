@@ -70,5 +70,13 @@ the source-copy file exist only to disambiguate the three articles in one docume
 - **Reusing an image filename does not bust caches.** Verify a swap by checking the file
   on disk / intrinsic size, not by trusting a screenshot; hard-reload before assuming a
   swap failed.
-- **The lead form is not wired to a backend** (see the `TODO` in `script.js`); it
-  validates and shows a confirmation only.
+- **The lead form POSTs to a GoHighLevel inbound webhook** (`LEAD_WEBHOOK_URL` in
+  `script.js`). One webhook serves all six pages: each payload carries `page` and
+  `variant`, read from the DOM at runtime so all six `script.js` files stay
+  byte-identical. Verify the URL by confirming a contact lands in GHL, never by the
+  HTTP response: the endpoint returns `{"status":"Success: test request received"}`
+  with 200 for any id, including ones that do not exist.
+- **The form has a honeypot** (`company_website`): off-screen, `tabindex="-1"`,
+  inside an `aria-hidden` wrapper, and never `display: none`, which some bots detect.
+  A submission with a value in it is dropped silently. A failed POST keeps what the
+  visitor typed and tells them to call, rather than clearing the form.

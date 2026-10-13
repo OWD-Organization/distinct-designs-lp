@@ -893,6 +893,16 @@ h4 {
    the inputs' intrinsic width (size/cols defaults) floors each track at ~257px,
    and in the narrow hero card the two columns overflow their container. */
 .lead-form__row { display: flex; flex-direction: column; gap: var(--space-3xs); min-width: 0; }
+
+/* Honeypot. Positioned off-screen rather than display:none, because some bots
+   skip fields they can tell are hidden. */
+.lead-form__trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
 .lead-form__row--full { grid-column: 1 / -1; }
 
 .lead-form label {
