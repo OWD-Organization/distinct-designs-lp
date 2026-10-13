@@ -21,7 +21,16 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Images are not embedded. The set weighs roughly 1.8 MB and base64 would push
 # each file past a comfortable size to paste into GHL, so they are served from
 # the deployed site instead.
-IMAGE_BASE = "https://distinct-designs-construction.vercel.app/custom-home-build/images/"
+#
+# Each page points at ITS OWN images folder. The folders share filenames but not
+# always contents (see the README on diverged photos), so a shared base would
+# quietly serve the wrong photograph.
+SITE = "https://distinct-designs-construction.vercel.app/"
+
+
+def image_base(src_dir):
+    return f"{SITE}{src_dir}/images/"
+
 
 # (source page folder, output folder, output filename, label for the header)
 PAGES = [
@@ -29,6 +38,10 @@ PAGES = [
      "custom-home-build.html", ""),
     ("custom-home-build-hero-form", "custom-home-build",
      "custom-home-build-hero-form.html", ", hero-form variant"),
+    ("whole-home-remodel-hero-form", "whole-home-remodel",
+     "whole-home-remodel-hero-form.html", " remodel, hero-form variant"),
+    ("custom-adu-hero-form", "custom-adu",
+     "custom-adu-hero-form.html", " ADU, hero-form variant"),
 ]
 
 HEADER = """<!--
@@ -62,6 +75,7 @@ HEADER = """<!--
 
 
 def build(src_dir, out_dir, out_name, label):
+    IMAGE_BASE = image_base(src_dir)
     src = os.path.join(REPO, src_dir)
     html = open(os.path.join(src, "index.html"), encoding="utf-8").read()
     css = open(os.path.join(src, "styles.css"), encoding="utf-8").read()

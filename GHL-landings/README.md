@@ -7,12 +7,17 @@ one file is one complete page.
 
 ```
 GHL-landings/
-└── custom-home-build/
-    ├── custom-home-build.html            standard version
-    └── custom-home-build-hero-form.html  variant, lead form in the hero
+├── custom-home-build/
+│   ├── custom-home-build.html                   standard version
+│   └── custom-home-build-hero-form.html         lead form in the hero
+├── whole-home-remodel/
+│   └── whole-home-remodel-hero-form.html        lead form in the hero
+└── custom-adu/
+    └── custom-adu-hero-form.html                lead form in the hero
 ```
 
-The remaining two landing pages and their variants are not built yet.
+All three hero-form variants are built. The standard versions of the remodel
+and ADU pages are not: add them to `PAGES` in `build.py` when they are needed.
 
 ## Regenerating
 
@@ -31,11 +36,12 @@ each file too large to paste comfortably, so they are absolute URLs pointing at
 the deployed site:
 
 ```
-https://distinct-designs-construction.vercel.app/custom-home-build/images/
+https://distinct-designs-construction.vercel.app/<page-folder>/images/
 ```
 
-Both files share that one base URL, because the variant's images are
-byte-identical copies of the standard page's.
+**Each page points at its own folder.** The folders reuse filenames but not
+always contents (two photos diverged between the remodel and ADU pages), so a
+single shared base would quietly serve the wrong photograph.
 
 To serve them from GHL instead, upload the files to the GHL media library and
 replace the base URL throughout. Find them with:
@@ -78,3 +84,20 @@ they can tell are hidden.
 
 If the POST fails the page keeps what the visitor typed and asks them to call,
 rather than clearing the form.
+
+
+## Pasting into GHL
+
+Each file is a complete HTML document. A browser pasted one into a funnel page
+ignores the nested `<html>`, `<head>` and `<body>` tags but still applies the
+`<style>` and runs the `<script>`, so the design, the scroll reveals, the
+accordion, the lightbox and the form all work. Two things do not survive, both
+measured in a simulated funnel page:
+
+- **Put it in a full-width section with no padding.** Dropped into GHL's default
+  1170px row, the hero and nav were clipped to 1140px of a 1280px viewport and
+  the full-bleed hero is lost. In a full-width row they filled the viewport.
+- **`<title>`, the meta description and the canonical link come from GHL's page
+  settings, not from the pasted file.** The host page's own `<title>` wins. Copy
+  those three values out of the file's `<head>` into the GHL page settings, or
+  the page ships with whatever GHL defaulted to.
