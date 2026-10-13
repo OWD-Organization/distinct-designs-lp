@@ -1,22 +1,22 @@
 /* =================================================================
-   DISTINCT DESIGNS CONSTRUCTION — DESIGN SYSTEM STYLESHEET
+   DISTINCT DESIGNS CONSTRUCTION: DESIGN SYSTEM STYLESHEET
    Shared foundation for custom-home-build, remodel & ADU pages.
    Organization: Variables → Reset → Typography → Layout Primitives →
    Components → Sections → Media Queries (mobile-first)
    ================================================================= */
 
 /* -----------------------------------------------------------------
-   1. CSS VARIABLES — DESIGN TOKENS
+   1. CSS VARIABLES: DESIGN TOKENS
    ----------------------------------------------------------------- */
 :root {
   /* Color: brand palette taken from distinctdesignsconstruction.com
      (Astra/Elementor globals + rendered usage). Navy + near-black + gold.
-       #070614 near-black  — dominant dark surface
-       #0F172A navy        — headings on light, secondary dark surface, footer
-       #C8AB72 gold        — brand accent (Astra color-4 / Elementor accent)
-       #364151 slate       — body copy
-       #D1DAE5 light steel — light neutral surface / muted on dark
-       #FFFFFF white       — light surface, text on dark                     */
+       #070614 near-black  : dominant dark surface
+       #0F172A navy        : headings on light, secondary dark surface, footer
+       #C8AB72 gold        : brand accent (Astra color-4 / Elementor accent)
+       #364151 slate       : body copy
+       #D1DAE5 light steel : light neutral surface / muted on dark
+       #FFFFFF white       : light surface, text on dark                     */
   --color-bg: #ffffff;
   --color-bg-sand: #d1dae5;
   --color-charcoal: #0f172a;
@@ -25,11 +25,11 @@
   --color-text-muted: #364151; /* AA: 10.3:1 on --color-bg, 7.3:1 on --color-bg-sand */
   --color-text-on-dark: #ffffff;
   --color-text-on-dark-muted: #d1dae5;
-  --color-clay: #c8ab72;       /* true brand gold — use on dark, or as a surface/border */
+  --color-clay: #c8ab72;       /* true brand gold: use on dark, or as a surface/border */
   --color-clay-dark: #a98a50;  /* darker gold, hover on gold surfaces */
   --color-clay-text: #8f7239;  /* gold as TEXT on light: brand gold is only 2.2:1 on
                                   white, this shade keeps the hue and passes AA (4.5:1) */
-  --color-on-accent: #0f172a;  /* text on a gold surface (8.1:1) — matches the navy-on-gold
+  --color-on-accent: #0f172a;  /* text on a gold surface (8.1:1). Matches the navy-on-gold
                                   they use for their own FAQ; white on gold is 2.2:1 */
   --color-hairline: #d1dae5;
   --color-hairline-on-dark: rgba(255, 255, 255, 0.16);
@@ -61,7 +61,7 @@
   /* Layout */
   --content-max: 1360px;
   --content-narrow: 760px;
-  --nav-h: 71px; /* actual sticky-nav height — the logo now sets it, so it
+  --nav-h: 71px; /* actual sticky-nav height. The logo now sets it, so it
                     is the same at every breakpoint (no override needed) */
   --radius: 2px;
   --border-w: 1px;
@@ -445,7 +445,7 @@ h4 {
    ----------------------------------------------------------------- */
 .hero {
   position: relative;
-  /* The sticky nav consumes layout flow above the hero, so subtract it —
+  /* The sticky nav consumes layout flow above the hero, so subtract it,
      otherwise hero + nav exceeds one viewport and the CTAs fall below the fold. */
   min-height: calc(100dvh - var(--nav-h));
   display: flex;
@@ -469,8 +469,8 @@ h4 {
   inset: 0;
   /* Two stacked layers. The hero photograph is bright (pale travertine and
      sky), so white type needs a real base, not a light wash:
-       1. horizontal — anchors the left column where the copy sits
-       2. vertical   — grounds the base and keeps the top airy
+       1. horizontal: anchors the left column where the copy sits
+       2. vertical  : grounds the base and keeps the top airy
      Falling away to the right leaves the colonnade, pool and palms visible. */
   background:
     linear-gradient(90deg,
@@ -1022,7 +1022,7 @@ h4 {
   .site-footer__inner { flex-direction: row; justify-content: space-between; align-items: flex-start; }
 }
 
-/* Desktop: asymmetric 4-cell bento — exactly 4 projects, no empty cells.
+/* Desktop: asymmetric 4-cell bento, exactly 4 projects, no empty cells.
    Placement is by position so the other landing pages reuse it as-is. */
 @media (min-width: 900px) {
   .projects-grid {
