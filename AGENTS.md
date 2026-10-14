@@ -72,3 +72,19 @@ the source-copy file exist only to disambiguate the three articles in one docume
   swap failed.
 - **The lead form is not wired to a backend** (see the `TODO` in `script.js`); it
   validates and shows a confirmation only.
+
+## Cursor Cloud specific instructions
+
+No package install and no build. Python 3 from the base image is the only runtime. `website/generate.py` and `website/pages.py` use the standard library.
+
+The boot `start` script serves the repository root on port 8000:
+
+```bash
+python3 -m http.server 8000 --bind 0.0.0.0
+```
+
+That one process is the whole dev experience. The landing-page hub is `/`, each campaign page is its own folder (`/custom-home-build/`, `/whole-home-remodel/`, `/custom-adu/`, and the `-hero-form` twins), and the company site is `/website/`. Do not start a second server inside `website/` unless that folder must be the site root.
+
+`python3 website/generate.py` rewrites the company-site HTML. It is not part of boot. Run it only when the source copy in `website/pages.py` changes, then review the HTML diff.
+
+Hello-world check from the running server: open `/`, follow a live hub card into a landing page, open one FAQ item, and submit the lead form empty so the validation message appears. A filled submit only shows the on-page confirmation. The company site check is `GET /website/` returning the homepage HTML.
