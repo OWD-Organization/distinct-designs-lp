@@ -219,9 +219,9 @@
   }
 
   /* ---------------------------------------------------------------
-     Lead form handling
-     Note: no backend wired up yet. Replace this handler's success
-     branch with a real fetch() to your CRM/email endpoint.
+     Contact form → LeadConnector inbound webhook.
+     Homepage consultation and /contact/ only. Guide and referral
+     widgets still submit inside their own iframes.
      --------------------------------------------------------------- */
   var leadForm = document.getElementById("lead-form");
   var leadFormNote = document.getElementById("lead-form-note");
@@ -236,9 +236,38 @@
         return;
       }
 
-      // TODO: wire to real submission endpoint (CRM, email service, etc.)
-      leadFormNote.textContent = "Thank you. Nick's team will reach out within one business day.";
-      leadForm.reset();
+      var pageField = leadForm.querySelector('input[name="page_url"]');
+      if (pageField) pageField.value = window.location.href;
+
+      var data = new FormData(leadForm);
+      var services = data.getAll("services");
+      var payload = {};
+      data.forEach(function (value, key) {
+        if (key === "services") return;
+        payload[key] = value;
+      });
+      payload.services = services.join(", ");
+
+      var button = leadForm.querySelector('[type="submit"]');
+      if (button) button.disabled = true;
+      leadFormNote.textContent = "Sending...";
+
+      fetch(leadForm.action, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      }).then(function (res) {
+        if (!res.ok) throw new Error("Request failed");
+        return res.json().catch(function () { return {}; });
+      }).then(function () {
+        leadFormNote.textContent = "Thank you. We'll contact you within 24 hours to discuss your custom project.";
+        leadForm.reset();
+        if (pageField) pageField.value = window.location.href;
+      }).catch(function () {
+        leadFormNote.textContent = "Something went wrong sending your note. Please call (760) 221-4290.";
+      }).then(function () {
+        if (button) button.disabled = false;
+      });
     });
   }
 })();

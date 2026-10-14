@@ -61,6 +61,17 @@ SECONDARY = [
 GUIDE_FORM = "YQYYVz28qqwYJWbc8ZUw"
 CONTACT_FORM = "IbFWLZlZNETBrImKFVjN"
 REFERRAL_FORM = "MyS2TrJSOhTn1mitpihf"
+# Inbound webhook for the consultation form (homepage #form and /contact/).
+CONTACT_WEBHOOK = "https://services.leadconnectorhq.com/hooks/M0maz1S3Bhkgiw0ntdG7/webhook-trigger/QwjlLE1PBqCR3eK57ZsZ"
+# Labels match the GoHighLevel contact form this webhook replaces.
+CONTACT_SERVICES = [
+    "High End Custom Luxury Home Construction",
+    "Whole-Home Renovations & Transformations",
+    "Designer Kitchen Renovations & Remodels",
+    "Luxury Bathroom Renovations, Remodels & Additions",
+    "Custom ADU & Casita Suite Construction",
+    "Full-Service Architecture & Engineering Coordination",
+]
 
 NAV = [
     ("Projects", "projects"),
@@ -571,6 +582,59 @@ def form_embed(form_id, title):
     return f"""<div class="form-embed form-embed--{kind}">
   <iframe src="https://api.leadconnectorhq.com/widget/form/{form_id}" title="{title}" id="inline-{form_id}" data-layout="{layout}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="{title}" data-height="{fallback}" data-layout-iframe-id="inline-{form_id}" data-form-id="{form_id}" scrolling="no"></iframe>
 </div>"""
+
+
+def contact_form(title, tone="dark"):
+    """Native consultation form. Posts its fields to the LeadConnector webhook.
+
+    The GoHighLevel contact iframe never exposes field values to this page, so
+    the homepage consultation block and /contact/ collect the same fields here.
+    Guide and referral embeds stay on their own widgets.
+    """
+    checks = []
+    for label in CONTACT_SERVICES:
+        safe = label.replace("&", "&amp;")
+        checks.append(
+            f'<label><input type="checkbox" name="services" value="{safe}"> {safe}</label>'
+        )
+    tone_class = " lead-form--light" if tone == "light" else ""
+    safe_title = title.replace('"', "&quot;")
+    return f"""<form class="lead-form{tone_class}" id="lead-form" method="post" action="{CONTACT_WEBHOOK}" data-form-name="{safe_title}">
+  <div class="lead-form__row">
+    <label for="lead-first-name">First Name *</label>
+    <input id="lead-first-name" name="first_name" type="text" autocomplete="given-name" required>
+  </div>
+  <div class="lead-form__row">
+    <label for="lead-last-name">Last Name *</label>
+    <input id="lead-last-name" name="last_name" type="text" autocomplete="family-name" required>
+  </div>
+  <div class="lead-form__row">
+    <label for="lead-phone">Phone *</label>
+    <input id="lead-phone" name="phone" type="tel" autocomplete="tel" required>
+  </div>
+  <div class="lead-form__row">
+    <label for="lead-email">Email *</label>
+    <input id="lead-email" name="email" type="email" autocomplete="email" required>
+  </div>
+  <fieldset class="lead-form__row lead-form__row--full">
+    <legend>Services Interest In</legend>
+    <div class="lead-form__checks">
+      {"".join(checks)}
+    </div>
+  </fieldset>
+  <div class="lead-form__row lead-form__row--full">
+    <label for="lead-message">Message</label>
+    <textarea id="lead-message" name="message" rows="5"></textarea>
+  </div>
+  <div class="lead-form__row lead-form__row--full">
+    <button class="btn btn--primary" type="submit">Submit</button>
+    <p class="lead-form__hint">We'll contact you within 24 hours to discuss your custom project.</p>
+    <p class="lead-form__note" id="lead-form-note" role="status" aria-live="polite"></p>
+  </div>
+  <input type="hidden" name="form_name" value="{safe_title}">
+  <input type="hidden" name="page_url" value="">
+  <input type="hidden" name="source" value="website-contact-form">
+</form>"""
 
 
 def gallery(slug, images, caption_prefix):

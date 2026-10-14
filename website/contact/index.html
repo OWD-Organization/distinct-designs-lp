@@ -87,9 +87,42 @@
     </div>
     <div>
       <h3>Start your custom home journey now</h3>
-      <div class="form-embed form-embed--contact">
-  <iframe src="https://api.leadconnectorhq.com/widget/form/IbFWLZlZNETBrImKFVjN" title="Contact Distinct Designs Construction" id="inline-IbFWLZlZNETBrImKFVjN" data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="Contact Distinct Designs Construction" data-height="1280" data-layout-iframe-id="inline-IbFWLZlZNETBrImKFVjN" data-form-id="IbFWLZlZNETBrImKFVjN" scrolling="no"></iframe>
-</div>
+      <form class="lead-form lead-form--light" id="lead-form" method="post" action="https://services.leadconnectorhq.com/hooks/M0maz1S3Bhkgiw0ntdG7/webhook-trigger/QwjlLE1PBqCR3eK57ZsZ" data-form-name="Contact Distinct Designs Construction">
+  <div class="lead-form__row">
+    <label for="lead-first-name">First Name *</label>
+    <input id="lead-first-name" name="first_name" type="text" autocomplete="given-name" required>
+  </div>
+  <div class="lead-form__row">
+    <label for="lead-last-name">Last Name *</label>
+    <input id="lead-last-name" name="last_name" type="text" autocomplete="family-name" required>
+  </div>
+  <div class="lead-form__row">
+    <label for="lead-phone">Phone *</label>
+    <input id="lead-phone" name="phone" type="tel" autocomplete="tel" required>
+  </div>
+  <div class="lead-form__row">
+    <label for="lead-email">Email *</label>
+    <input id="lead-email" name="email" type="email" autocomplete="email" required>
+  </div>
+  <fieldset class="lead-form__row lead-form__row--full">
+    <legend>Services Interest In</legend>
+    <div class="lead-form__checks">
+      <label><input type="checkbox" name="services" value="High End Custom Luxury Home Construction"> High End Custom Luxury Home Construction</label><label><input type="checkbox" name="services" value="Whole-Home Renovations &amp; Transformations"> Whole-Home Renovations &amp; Transformations</label><label><input type="checkbox" name="services" value="Designer Kitchen Renovations &amp; Remodels"> Designer Kitchen Renovations &amp; Remodels</label><label><input type="checkbox" name="services" value="Luxury Bathroom Renovations, Remodels &amp; Additions"> Luxury Bathroom Renovations, Remodels &amp; Additions</label><label><input type="checkbox" name="services" value="Custom ADU &amp; Casita Suite Construction"> Custom ADU &amp; Casita Suite Construction</label><label><input type="checkbox" name="services" value="Full-Service Architecture &amp; Engineering Coordination"> Full-Service Architecture &amp; Engineering Coordination</label>
+    </div>
+  </fieldset>
+  <div class="lead-form__row lead-form__row--full">
+    <label for="lead-message">Message</label>
+    <textarea id="lead-message" name="message" rows="5"></textarea>
+  </div>
+  <div class="lead-form__row lead-form__row--full">
+    <button class="btn btn--primary" type="submit">Submit</button>
+    <p class="lead-form__hint">We'll contact you within 24 hours to discuss your custom project.</p>
+    <p class="lead-form__note" id="lead-form-note" role="status" aria-live="polite"></p>
+  </div>
+  <input type="hidden" name="form_name" value="Contact Distinct Designs Construction">
+  <input type="hidden" name="page_url" value="">
+  <input type="hidden" name="source" value="website-contact-form">
+</form>
     </div>
   </div>
 </section>
@@ -129,6 +162,5 @@
   </figure>
 </dialog>
 <script src="../script.js"></script>
-<script src="https://link.msgsndr.com/js/form_embed.js"></script>
 </body>
 </html>

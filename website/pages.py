@@ -4,6 +4,7 @@ import generate as g
 
 H = g.hero
 F = g.form_embed
+CF = g.contact_form
 Q = g.quotes_html
 A = g.areas_html
 P = g.project_tiles
@@ -20,7 +21,6 @@ PHONE = g.PHONE_DISPLAY
 TEL = g.PHONE_TEL
 EMAIL = g.EMAIL
 GUIDE = g.GUIDE_FORM
-CONTACT = g.CONTACT_FORM
 
 # Cover of the published flipbook (the planning-guide page embeds the same Heyzine
 # book). Flat cover, real title. The CSS mockup adds the tilt and shadow.
@@ -147,7 +147,7 @@ def home():
   <div class="lead-section__content">
     <h2>Start your custom home journey now</h2>
     <p>Talk with Distinct Designs about a custom home, remodel, or ADU. Call <a href="tel:{TEL}">{PHONE}</a> or send a note below.</p>
-    {F(CONTACT, "Start your custom home journey")}
+    {CF("Start your custom home journey")}
   </div>
 </section>
 """
@@ -812,7 +812,7 @@ def contact():
     </div>
     <div>
       <h3>Start your custom home journey now</h3>
-      {F(CONTACT, "Contact Distinct Designs Construction")}
+      {CF("Contact Distinct Designs Construction", tone="light")}
     </div>
   </div>
 </section>
