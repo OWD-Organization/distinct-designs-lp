@@ -249,6 +249,7 @@
       payload.services = services.join(", ");
 
       var button = leadForm.querySelector('[type="submit"]');
+      var hint = leadForm.querySelector(".lead-form__hint");
       if (button) button.disabled = true;
       leadFormNote.textContent = "Sending...";
 
@@ -260,6 +261,7 @@
         if (!res.ok) throw new Error("Request failed");
         return res.json().catch(function () { return {}; });
       }).then(function () {
+        if (hint) hint.hidden = true;
         leadFormNote.textContent = "Thank you. We'll contact you within 24 hours to discuss your custom project.";
         leadForm.reset();
         if (pageField) pageField.value = window.location.href;
