@@ -99,8 +99,10 @@ def build(src_dir, out_dir, out_name, label):
 
     html = re.sub(r'(src|srcset)="images/', lambda m: f'{m.group(1)}="{IMAGE_BASE}', html)
     html = re.sub(r"(\d+w, )images/", lambda m: m.group(1) + IMAGE_BASE, html)
-    stripped = html.replace(IMAGE_BASE, "")
-    assert 'images/' not in stripped, f"{src_dir}: a relative image path survived"
+    # Absolute URLs may still contain "/images/" (the Open Graph thumbnail points
+    # at one shared photo). Only a relative images/ reference is a missed rewrite.
+    relative = re.findall(r'(?:^|["\'(\s])(?:\./)?images/', html)
+    assert not relative, f"{src_dir}: a relative image path survived"
 
     # The review widget must be gone; the header comment naming it is fine.
     body = html[html.index("<body"):]
