@@ -53,7 +53,8 @@ the source-copy file exist only to disambiguate the three articles in one docume
 ## Conventions worth preserving
 
 - **Copy is client-supplied and used verbatim.** Do not paraphrase or condense body copy.
-  Exception on record: em dashes were removed from all three landing pages at the client's
+  Exceptions on record: the entry price for custom homes was changed from $870K to
+  $1M on every page, at the user's request, to match the main site. Em dashes were removed from all three landing pages at the client's
   request, each replaced with the punctuation its sentence needed. Wording is unchanged.
   Keep new copy dash-free; en dashes in numeric ranges are fine.
 - **FAQ JSON-LD must stay in sync** with the visible FAQ copy on each page, or the rich
