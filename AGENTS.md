@@ -81,6 +81,11 @@ the source-copy file exist only to disambiguate the three articles in one docume
   byte-identical. Verify the URL by confirming a contact lands in GHL, never by the
   HTTP response: the endpoint returns `{"status":"Success: test request received"}`
   with 200 for any id, including ones that do not exist.
+- **Tracking mirrors the main site.** The three landing pages and `thank-you/` load the
+  Google tag (GA4 `G-ZN3C7W7TY1` plus `GT-PLHFGS6K`) and the Meta pixel
+  (`2036241113908440`), copied from distinctdesignsconstruction.com, alongside
+  WhatConverts on the landing pages. The hub is internal and carries no tags. If the
+  main site's IDs change, change them here too.
 - **The form has a honeypot** (`company_website`): off-screen, `tabindex="-1"`,
   inside an `aria-hidden` wrapper, and never `display: none`, which some bots detect.
   A submission with a value in it is dropped silently. A failed POST keeps what the
