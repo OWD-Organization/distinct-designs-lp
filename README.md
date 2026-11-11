@@ -13,30 +13,28 @@ Deployed as a static site on Vercel.
 | Page | Route | Status |
 |---|---|---|
 | Hub (index of landing pages) | `/` | Live |
-| Custom Home Build | `/custom-home-build/` | Live |
-| Whole-Home Remodel | `/whole-home-remodel/` | Live |
-| Custom ADU & Guest Suite | `/custom-adu/` | Live |
-| Custom Home Build, hero form | `/custom-home-build-hero-form/` | Live |
-| Whole-Home Remodel, hero form | `/whole-home-remodel-hero-form/` | Live |
-| Custom ADU, hero form | `/custom-adu-hero-form/` | Live |
+| Custom Home Build | `/custom-home-build-hero-form/` | Live |
+| Whole-Home Remodel | `/whole-home-remodel-hero-form/` | Live |
+| Custom ADU & Guest Suite | `/custom-adu-hero-form/` | Live |
 
-### Hero-form variants
+### Lead form in the hero
 
-Each landing page has a `-hero-form` twin: same copy, same photography, same form
-fields, with the lead form moved from the closing section into the hero so it is
-visible without scrolling. Built for an A/B test on form placement.
+Every landing page carries its lead form in the hero, so it is visible without
+scrolling. The pages began as `-hero-form` twins of standard pages that had the
+form in the closing section. The standard pages were removed; the folders keep the
+`-hero-form` suffix because those URLs are already in use.
 
-- The form was **moved**, not duplicated. Two copies would mean duplicate `id`s,
-  which breaks `<label for>` and `getElementById`, and would muddy the test.
+- There is **one** form per page. Two copies would mean duplicate `id`s, which
+  breaks `<label for>` and `getElementById`.
 - The hero form carries `id="form"`, so the nav, sticky bar and footer links all
   still resolve. The closing section keeps its photo, heading and copy, and gains
   a button back up to the form.
-- The hero CTA row drops "Schedule a Consultation" there, since it would scroll to
+- The hero CTA row has no "Schedule a Consultation" button, since it would scroll to
   a form already on screen. The call button stays.
-- Variants keep the same `<link rel="canonical">` as their twin, pointing at the
-  client's real URL, so the pair is not treated as duplicate content.
-- Variant CSS lives in section 9.b of the shared stylesheet and is inert on the
-  standard pages, which keeps all six stylesheets byte-identical.
+- Each page's `<link rel="canonical">` points at the client's real URL, without
+  the `-hero-form` suffix.
+- The hero-form CSS lives in section 9.b of the shared stylesheet. All three
+  stylesheets are byte-identical.
 
 The hub at `/` is an internal index — it is `noindex, nofollow` and links to each
 landing page. All three pages are now built and linked.
@@ -85,14 +83,16 @@ leaving two files with one name and two contents.
 ├── index.html                          # Hub page (no footer, no JS)
 ├── styles.css                          # Hub styles (shares the design tokens)
 ├── assets/                             # Hub card images
-├── custom-home-build/                  # Landing page 1 — self-contained
+├── custom-home-build-hero-form/        # Landing page 1 — self-contained
 │   ├── index.html
 │   ├── styles.css                      # The design system
 │   ├── script.js
 │   ├── images/
 │   └── README.md                       # Full page docs: tokens, classes, gotchas
-├── whole-home-remodel/                 # Landing page 2 — self-contained
-├── custom-adu/                         # Landing page 3 — self-contained
+├── whole-home-remodel-hero-form/       # Landing page 2 — self-contained
+├── custom-adu-hero-form/               # Landing page 3 — self-contained
+├── thank-you/                          # Shared confirmation page after a lead
+├── GHL-landings/                       # Single-file builds for GoHighLevel
 └── distinct-designs-landing-pages.html # Source copy for all three pages
 ```
 
@@ -110,23 +110,24 @@ python3 -m http.server 8000
 # → http://localhost:8000/
 ```
 
-Opening `index.html` directly via `file://` also works, but the root-relative link
-to `/custom-home-build/` will not resolve. Use a server.
+Opening `index.html` directly via `file://` also works, but the root-relative links
+to the page folders will not resolve. Use a server.
 
 ---
 
 ## Adding another page
 
-Full instructions are in [`custom-home-build/README.md`](custom-home-build/README.md).
+Full instructions are in
+[`custom-home-build-hero-form/README.md`](custom-home-build-hero-form/README.md).
 Short version:
 
-1. `cp -r custom-home-build whole-home-remodel`
+1. `cp -r custom-home-build-hero-form <new-slug>`
 2. Swap in the copy from the matching `<article>` in `distinct-designs-landing-pages.html`
 3. Update `<title>`, meta description, canonical URL, and the FAQ JSON-LD
 4. Replace the images in that folder
 5. In the hub's `index.html`, change that card's wrapper from
    `<div class="hub-card__link" aria-disabled="true">` to
-   `<a class="hub-card__link" href="/whole-home-remodel/">`, and swap its
+   `<a class="hub-card__link" href="/<new-slug>/">`, and swap its
    `hub-card__status` to `hub-card__status--live` with the label `Live`
 
 The stylesheet is a shared design system driven by `:root` tokens — rebrand or

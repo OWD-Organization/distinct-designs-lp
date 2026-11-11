@@ -5,7 +5,7 @@ no frameworks, no build step, no dependencies.** Deployed as a static site on Ve
 (push to `main` → production, PRs → preview URLs).
 
 Read [`README.md`](README.md) for the project overview and
-[`custom-home-build/README.md`](custom-home-build/README.md) for the full design-system
+[`custom-home-build-hero-form/README.md`](custom-home-build-hero-form/README.md) for the full design-system
 docs (tokens, classes, image slots, gotchas). This file captures the durable rules an
 agent must not break.
 
@@ -18,23 +18,28 @@ python3 -m http.server 8000
 # → http://localhost:8000/
 ```
 
-Use a server, not `file://` — the root-relative link to `/custom-home-build/` only
-resolves over HTTP. Test in Chrome and verify the hero CTAs, scroll reveals, FAQ
+Use a server, not `file://` — the root-relative links to the page folders only
+resolve over HTTP. Test in Chrome and verify the hero CTAs, scroll reveals, FAQ
 accordion, mobile nav, sticky CTA bar, project lightbox, and form validation.
 
 ## Architecture
 
-- Each landing page folder (`custom-home-build/`, etc.) is **self-contained**: its own
+- Each landing page folder (`custom-home-build-hero-form/`, etc.) is **self-contained**: its own
   `index.html`, `styles.css`, `script.js`, and `images/`. Keep pages independently
   deployable — never make one page depend on another's files.
 - `styles.css` inside a page folder is a **shared design system** driven by `:root`
   tokens. Rebrand/retune by editing tokens, not individual rules.
+- **Every landing page carries its lead form in the hero.** The folders keep their
+  `-hero-form` suffix because those URLs are in use (ads, and the image URLs in the
+  GHL single-file builds). The standard versions, with the form in the closing
+  section, were removed; do not rename the folders or re-add them without being asked.
 - `distinct-designs-landing-pages.html` holds the **source copy** for all three pages
   (custom home build, whole-home remodel, custom ADU) as semantic `<article>` blocks.
 
 ## Adding a landing page
 
-Follow the recipe in `custom-home-build/README.md`. In short: copy `custom-home-build/`,
+Follow the recipe in `custom-home-build-hero-form/README.md`. In short: copy
+`custom-home-build-hero-form/`,
 swap the copy from the matching `<article>` in `distinct-designs-landing-pages.html`,
 update `<title>`, `<meta name="description">`, `<link rel="canonical">`, and the FAQ
 JSON-LD, then flip its hub card in the root `index.html` from a disabled
@@ -71,8 +76,8 @@ the source-copy file exist only to disambiguate the three articles in one docume
   on disk / intrinsic size, not by trusting a screenshot; hard-reload before assuming a
   swap failed.
 - **The lead form POSTs to a GoHighLevel inbound webhook** (`LEAD_WEBHOOK_URL` in
-  `script.js`). One webhook serves all six pages: each payload carries `page` and
-  `variant`, read from the DOM at runtime so all six `script.js` files stay
+  `script.js`). One webhook serves all three pages: each payload carries `page` and
+  `variant`, read from the DOM at runtime so all three `script.js` files stay
   byte-identical. Verify the URL by confirming a contact lands in GHL, never by the
   HTTP response: the endpoint returns `{"status":"Success: test request received"}`
   with 200 for any id, including ones that do not exist.

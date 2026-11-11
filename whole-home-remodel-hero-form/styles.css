@@ -518,8 +518,7 @@ h4 {
 
 /* -----------------------------------------------------------------
    9.b HERO VARIANT: LEAD FORM IN THE HERO
-   Used by the *-hero-form pages. Unused rules on the standard pages,
-   kept here so all six stylesheets stay byte-identical.
+   Used by every landing page: the lead form sits in the hero.
    ----------------------------------------------------------------- */
 .hero--form { align-items: center; }
 
