@@ -36,8 +36,8 @@ accordion, mobile nav, sticky CTA bar, project lightbox, and form validation.
 
 Follow the recipe in `custom-home-build/README.md`. In short: copy `custom-home-build/`,
 swap the copy from the matching `<article>` in `distinct-designs-landing-pages.html`,
-update `<title>`, `<meta name="description">`, `<link rel="canonical">`, and the FAQ
-JSON-LD, then flip its hub card in the root `index.html` from a disabled
+update `<title>`, `<meta name="description">`, `<link rel="canonical">`, the Open Graph
+tags, and both JSON-LD blocks (FAQ and LocalBusiness), then flip its hub card in the root `index.html` from a disabled
 `<div class="hub-card__link" aria-disabled="true">` to
 `<a class="hub-card__link" href="/<slug>/">`, and swap its `hub-card__status` to
 `hub-card__status--live` with the label `Live`. Keep clean in-page anchor ids
@@ -80,3 +80,19 @@ the source-copy file exist only to disambiguate the three articles in one docume
   inside an `aria-hidden` wrapper, and never `display: none`, which some bots detect.
   A submission with a value in it is dropped silently. A failed POST keeps what the
   visitor typed and tells them to call, rather than clearing the form.
+- **URLs end in a slash** (`trailingSlash: true` in `vercel.json`). Never flip it: the
+  pages use relative asset paths that break on a slashless URL.
+- **Canonicals point at the hero-form page of each pair** on
+  `https://go.distinctdesignsconstruction.com/`, and `sitemap.xml` lists only those
+  three. The hub and thank-you page stay `noindex` and must not be blocked in
+  `robots.txt`.
+- **LocalBusiness JSON-LD carries only client-published facts.** Do not add an address,
+  hours, ratings or prices that the client has not supplied.
+- **Internal files are excluded by `.vercelignore`** (source copy, `GHL-landings/`,
+  `AGENTS.md`, every `README.md`). Add any new internal file there.
+- **Fonts are self-hosted per page folder** (`fonts/`, declared in section 0 of
+  `styles.css`). Do not reintroduce a render-blocking third-party stylesheet or a
+  synchronous script in `<head>`.
+- **Feedbucket loads only on `*.vercel.app` and `localhost`**, gated by hostname.
+- **Everything committed to this repository is written in English**: code, comments,
+  documentation and commit messages.

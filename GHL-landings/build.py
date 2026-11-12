@@ -99,8 +99,19 @@ def build(src_dir, out_dir, out_name, label):
 
     html = re.sub(r'(src|srcset)="images/', lambda m: f'{m.group(1)}="{IMAGE_BASE}', html)
     html = re.sub(r"(\d+w, )images/", lambda m: m.group(1) + IMAGE_BASE, html)
-    stripped = html.replace(IMAGE_BASE, "")
+    # Absolute image URLs (this base, and the social/schema image on the live
+    # domain) are fine; only a path relative to the page would break in GHL.
+    stripped = re.sub(r'https://[^\s"]+/images/', "", html)
     assert 'images/' not in stripped, f"{src_dir}: a relative image path survived"
+
+    # Fonts are self-hosted beside each page, so the preload links and the
+    # inlined @font-face rules need absolute URLs too. The deployed site sends
+    # Access-Control-Allow-Origin for /fonts/ (see vercel.json), which a font
+    # loaded from another origin requires.
+    FONT_BASE = f"{SITE}{src_dir}/fonts/"
+    html = html.replace('href="fonts/', f'href="{FONT_BASE}')
+    html = html.replace('url("fonts/', f'url("{FONT_BASE}')
+    assert '"fonts/' not in html, f"{src_dir}: a relative font path survived"
 
     # The review widget must be gone; the header comment naming it is fine.
     body = html[html.index("<body"):]

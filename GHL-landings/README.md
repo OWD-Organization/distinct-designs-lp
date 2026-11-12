@@ -50,6 +50,13 @@ replace the base URL throughout. Find them with:
 grep -o 'https://[^"]*images/[a-z0-9.-]*' GHL-landings/custom-home-build/*.html | sort -u
 ```
 
+## Fonts
+
+Fonts are not embedded either. The build rewrites the preload links and the
+`@font-face` rules to absolute URLs under `<page-folder>/fonts/` on the deployed
+site, which sends `Access-Control-Allow-Origin: *` for that path (`vercel.json`).
+Without that header a browser refuses a font loaded from another origin.
+
 ## What the build changes
 
 - **Feedbucket is stripped.** It is a staging review widget and should not run in

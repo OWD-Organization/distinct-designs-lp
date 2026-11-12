@@ -22,7 +22,8 @@ The stylesheet is a **shared design system**, not one-off page styling. To build
    the custom-home page.
 2. Copy `index.html`, then swap the copy from the matching `<article>` in
    `distinct-designs-landing-pages.html`.
-3. Update `<title>`, `<meta name="description">`, `<link rel="canonical">`, and the
+3. Update `<title>`, `<meta name="description">`, `<link rel="canonical">`, the Open
+   Graph tags, the LocalBusiness JSON-LD, and the
    FAQ JSON-LD block at the bottom.
 4. Drop in that page's images using the same filenames.
 
