@@ -186,7 +186,7 @@
     var submitBtn = leadForm.querySelector('button[type="submit"]');
     var submitLabel = submitBtn ? submitBtn.textContent : "";
 
-    // Which page and which A/B variant this lead came from. Read from the
+    // Which page and which layout variant this lead came from. Read from the
     // document so this file stays identical across every page.
     var article = document.querySelector("article[id]");
     var pageId = article ? article.id : "unknown";
@@ -233,11 +233,11 @@
         .then(function (response) {
           if (!response.ok) throw new Error("HTTP " + response.status);
 
-          // Only the hero-form variants hand off to the thank-you page. The
-          // standard pages keep their inline confirmation, because their form
-          // sits at the foot of a long page that the visitor chose to read.
-          // Branching on the variant at runtime, rather than shipping two
-          // different files, keeps all six copies of this script identical.
+          // Hero-form pages hand off to the thank-you page. The inline
+          // confirmation below is the fallback for a page whose form is not
+          // in the hero; every live page is a hero-form page, so it is not
+          // reached today. Branching at runtime keeps every copy of this
+          // script identical.
           if (variant === "hero-form") {
             window.location.assign(THANK_YOU_URL);
             return;

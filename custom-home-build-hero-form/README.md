@@ -4,7 +4,7 @@ Production-ready landing page for `/custom-home-build`. Pure HTML/CSS/vanilla JS
 **No frameworks, no build step, no dependencies.** Open `index.html` or serve the folder.
 
 ```
-custom-home-build/
+custom-home-build-hero-form/
 ├── index.html      # Page markup + FAQ JSON-LD
 ├── styles.css      # Design system + page styles (18 numbered sections)
 ├── script.js       # Nav, scroll reveal, accordion, form

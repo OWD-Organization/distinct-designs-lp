@@ -15,6 +15,13 @@
 <link rel="preconnect" href="https://res.cloudinary.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+<!-- Google tag (gtag.js): GA4 and the Google tag, same IDs as the main site -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZN3C7W7TY1"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-ZN3C7W7TY1");gtag("config","GT-PLHFGS6K");</script>
+
+<!-- Meta Pixel, same ID as the main site -->
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","2036241113908440");fbq("track","PageView");</script>
+
 <!-- Shared by every landing page, so it carries its own CSS rather than
      reaching into one page folder's stylesheet. That keeps each landing page
      independently deployable and lets this file be pasted anywhere as-is. -->
@@ -206,6 +213,8 @@ img { max-width: 100%; display: block; }
 </style>
 </head>
 <body>
+<!-- Meta Pixel fallback for visitors without JavaScript -->
+<noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=2036241113908440&amp;ev=PageView&amp;noscript=1"></noscript>
 
 <a class="skip-link" href="#main">Skip to content</a>
 

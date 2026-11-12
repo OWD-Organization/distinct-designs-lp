@@ -8,7 +8,6 @@ one file is one complete page.
 ```
 GHL-landings/
 ├── custom-home-build/
-│   ├── custom-home-build.html                   standard version
 │   └── custom-home-build-hero-form.html         lead form in the hero
 ├── whole-home-remodel/
 │   └── whole-home-remodel-hero-form.html        lead form in the hero
@@ -16,8 +15,8 @@ GHL-landings/
     └── custom-adu-hero-form.html                lead form in the hero
 ```
 
-All three hero-form variants are built. The standard versions of the remodel
-and ADU pages are not: add them to `PAGES` in `build.py` when they are needed.
+All three pages are built. Every landing page carries its lead form in the
+hero; the standard versions, with the form in the closing section, were removed.
 
 ## Regenerating
 
@@ -68,10 +67,10 @@ The lead form POSTs JSON to a GoHighLevel inbound webhook, set in the
 including ones that do not exist, so a 200 proves nothing. The only real check is
 submitting the form and seeing the contact appear in GHL.
 
-One webhook serves all six pages: every payload carries `page`
+One webhook serves all three pages: every payload carries `page`
 (`custom-home-build`, `whole-home-remodel`, `custom-adu`) and `variant`
-(`standard` or `hero-form`), so the workflow can branch on those instead of
-needing a webhook per form.
+(always `hero-form` now that the standard pages are gone), so the workflow can
+branch on `page` instead of needing a webhook per form.
 
 Payload fields: `name`, `email`, `phone`, `budget` (the option label),
 `budget_value`, `message`, `page`, `variant`, `page_url`, `submitted_at`.
