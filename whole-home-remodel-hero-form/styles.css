@@ -6,6 +6,33 @@
    ================================================================= */
 
 /* -----------------------------------------------------------------
+   0. FONTS: self-hosted variable fonts, latin subset
+   Served from this page's own fonts/ folder so first paint does not
+   wait on a third-party stylesheet. One file covers every weight.
+   ----------------------------------------------------------------- */
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("fonts/manrope.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cormorant Garamond";
+  font-style: normal;
+  font-weight: 300 600;
+  font-display: swap;
+  src: url("fonts/cormorant-garamond.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cormorant Garamond";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/cormorant-garamond-italic.woff2") format("woff2");
+}
+
+/* -----------------------------------------------------------------
    1. CSS VARIABLES: DESIGN TOKENS
    ----------------------------------------------------------------- */
 :root {

@@ -31,12 +31,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Custom Luxury ADU &amp; Guest Suite Builder in the High Desert | Distinct Designs Construction</title>
-<meta name="description" content="Fully custom ADUs and guest suites in Yucca Valley, Joshua Tree, Palm Springs &amp; the Coachella Valley, built to the same standard as our $1M+ luxury homes, with one crew, one clear price and full permitting handled. Licensed CA GC #1145786.">
-<link rel="canonical" href="https://distinctdesignsconstruction.com/custom-adu">
+<meta name="description" content="Fully custom ADUs and guest suites in the High Desert &amp; Coachella Valley, built to the standard of our $1M+ luxury homes. Licensed CA GC #1145786.">
+<link rel="canonical" href="https://go.distinctdesignsconstruction.com/custom-adu-hero-form/">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Distinct Designs Construction">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Custom Luxury ADU &amp; Guest Suite Builder in the High Desert | Distinct Designs Construction">
+<meta property="og:description" content="Fully custom ADUs and guest suites in the High Desert &amp; Coachella Valley, built to the standard of our $1M+ luxury homes. Licensed CA GC #1145786.">
+<meta property="og:url" content="https://go.distinctdesignsconstruction.com/custom-adu-hero-form/">
+<meta property="og:image" content="https://go.distinctdesignsconstruction.com/custom-adu-hero-form/images/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Finished custom garage with polished concrete floors and two Porsche 911 sports cars, desert landscape through the window">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<!-- Fonts are self-hosted (see @font-face in styles.css). The two used above
+     the fold are preloaded; the italic face loads on demand. -->
+<link rel="preload" href="https://distinct-designs-construction.vercel.app/custom-adu-hero-form/fonts/manrope.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="https://distinct-designs-construction.vercel.app/custom-adu-hero-form/fonts/cormorant-garamond.woff2" as="font" type="font/woff2" crossorigin>
 
 <style>
 /* =================================================================
@@ -45,6 +62,33 @@
    Organization: Variables → Reset → Typography → Layout Primitives →
    Components → Sections → Media Queries (mobile-first)
    ================================================================= */
+
+/* -----------------------------------------------------------------
+   0. FONTS: self-hosted variable fonts, latin subset
+   Served from this page's own fonts/ folder so first paint does not
+   wait on a third-party stylesheet. One file covers every weight.
+   ----------------------------------------------------------------- */
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("https://distinct-designs-construction.vercel.app/custom-adu-hero-form/fonts/manrope.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cormorant Garamond";
+  font-style: normal;
+  font-weight: 300 600;
+  font-display: swap;
+  src: url("https://distinct-designs-construction.vercel.app/custom-adu-hero-form/fonts/cormorant-garamond.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cormorant Garamond";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("https://distinct-designs-construction.vercel.app/custom-adu-hero-form/fonts/cormorant-garamond-italic.woff2") format("woff2");
+}
 
 /* -----------------------------------------------------------------
    1. CSS VARIABLES: DESIGN TOKENS
@@ -1140,7 +1184,7 @@ h4 {
 
 <!-- Lead tracking (WhatConverts) -->
 <script>var $wc_load=function(a){return JSON.parse(JSON.stringify(a))},$wc_leads=$wc_leads||{doc:{url:$wc_load(document.URL),ref:$wc_load(document.referrer),search:$wc_load(location.search),hash:$wc_load(location.hash)}};</script>
-<script src="//s.ksrndkehqnwntyxlhgto.com/174814.js"></script>
+<script async src="//s.ksrndkehqnwntyxlhgto.com/174814.js"></script>
 
 </head>
 <body>
@@ -1335,6 +1379,8 @@ h4 {
            natural height, so nothing is cropped. -->
       <img
         src="https://distinct-designs-construction.vercel.app/custom-adu-hero-form/images/process-crew.webp"
+        srcset="https://distinct-designs-construction.vercel.app/custom-adu-hero-form/images/process-crew-800.webp 800w, https://distinct-designs-construction.vercel.app/custom-adu-hero-form/images/process-crew.webp 1200w"
+        sizes="(min-width: 1024px) 45vw, 100vw"
         alt="The Distinct Designs crew together inside a finished build, Joshua trees and desert mountains through the open sliders"
         loading="lazy" width="1200" height="1600"
       >
@@ -1581,6 +1627,90 @@ h4 {
   </div>
   <p class="site-footer__legal">&copy; <span id="year"></span> Distinct Designs Construction. All rights reserved.</p>
 </footer>
+
+<!-- LocalBusiness Structured Data. Every value is published by the client
+     (their main site's own schema, or this page's areas list). Nothing here
+     is estimated: no street address, hours or ratings until they supply them. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": [
+    "HomeAndConstructionBusiness",
+    "GeneralContractor"
+  ],
+  "@id": "https://distinctdesignsconstruction.com/#business",
+  "name": "Distinct Designs Construction",
+  "url": "https://distinctdesignsconstruction.com/",
+  "telephone": "+1-760-221-4290",
+  "logo": "https://distinctdesignsconstruction.com/images/site/DD-logo-full.webp",
+  "image": "https://go.distinctdesignsconstruction.com/custom-adu-hero-form/images/og-image.jpg",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Yucca Valley",
+    "addressRegion": "CA",
+    "addressCountry": "US"
+  },
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "Yucca Valley"
+    },
+    {
+      "@type": "City",
+      "name": "Joshua Tree"
+    },
+    {
+      "@type": "City",
+      "name": "Palm Springs"
+    },
+    {
+      "@type": "City",
+      "name": "Palm Desert"
+    },
+    {
+      "@type": "City",
+      "name": "La Quinta"
+    },
+    {
+      "@type": "City",
+      "name": "Indian Wells"
+    },
+    {
+      "@type": "City",
+      "name": "Rancho Mirage"
+    },
+    {
+      "@type": "City",
+      "name": "Cathedral City"
+    },
+    {
+      "@type": "City",
+      "name": "Coachella"
+    },
+    {
+      "@type": "City",
+      "name": "Twentynine Palms"
+    },
+    {
+      "@type": "City",
+      "name": "Landers"
+    },
+    {
+      "@type": "City",
+      "name": "Morongo Valley"
+    },
+    {
+      "@type": "City",
+      "name": "Desert Hot Springs"
+    }
+  ],
+  "sameAs": [
+    "https://www.instagram.com/distinctdesignsconst/",
+    "https://www.facebook.com/profile.php?id=61561101665757",
+    "https://www.yelp.com/biz/distinct-designs-yucca-valley-6"
+  ]
+}
+</script>
 
 <!-- FAQ Structured Data -->
 <script type="application/ld+json">

@@ -1,0 +1,13 @@
+# Internal files: kept in the repository, never deployed, so they return 404
+# on the public site instead of being readable by anyone with the URL.
+
+# Source copy draft for the three pages
+distinct-designs-landing-pages.html
+
+# GoHighLevel single-file builds and the script that generates them
+GHL-landings
+
+# Documentation and agent notes, at any depth
+AGENTS.md
+README.md
+**/README.md

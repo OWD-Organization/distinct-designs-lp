@@ -31,8 +31,9 @@ form in the closing section. The standard pages were removed; the folders keep t
   a button back up to the form.
 - The hero CTA row has no "Schedule a Consultation" button, since it would scroll to
   a form already on screen. The call button stays.
-- Each page's `<link rel="canonical">` points at the client's real URL, without
-  the `-hero-form` suffix.
+- Each page is self-canonical on the live domain:
+  `https://go.distinctdesignsconstruction.com/<slug>-hero-form/`. The same three
+  URLs are the only ones in `sitemap.xml`.
 - The hero-form CSS lives in section 9.b of the shared stylesheet. All three
   stylesheets are byte-identical.
 
@@ -82,6 +83,10 @@ leaving two files with one name and two contents.
 .
 ├── index.html                          # Hub page (no footer, no JS)
 ├── styles.css                          # Hub styles (shares the design tokens)
+├── robots.txt, sitemap.xml             # Crawling: sitemap lists the hero-form pages
+├── favicon.ico, favicon.png, apple-touch-icon.png
+├── vercel.json                         # Trailing slashes, font headers
+├── .vercelignore                       # Internal files kept off the public site
 ├── assets/                             # Hub card images
 ├── custom-home-build-hero-form/        # Landing page 1 — self-contained
 │   ├── index.html
@@ -123,7 +128,8 @@ Short version:
 
 1. `cp -r custom-home-build-hero-form <new-slug>`
 2. Swap in the copy from the matching `<article>` in `distinct-designs-landing-pages.html`
-3. Update `<title>`, meta description, canonical URL, and the FAQ JSON-LD
+3. Update `<title>`, meta description, canonical URL, the Open Graph tags, and
+   both JSON-LD blocks (FAQ and LocalBusiness)
 4. Replace the images in that folder
 5. In the hub's `index.html`, change that card's wrapper from
    `<div class="hub-card__link" aria-disabled="true">` to
@@ -165,9 +171,11 @@ Both live in each landing page's `<head>`. The hub carries neither.
 | WhatConverts (`174814`) | call and form lead tracking | reads URL, referrer, query and hash |
 | Feedbucket (`87QNN1OkJMjb4UmrA33d`) | visual review widget | **review only** |
 
-> **Remove Feedbucket before these pages go live on the client's own domain.**
-> It renders a feedback button for every visitor, which is right for review on the
-> Vercel URL and wrong in front of prospects.
+> **Feedbucket only loads on review hosts** (`*.vercel.app` and `localhost`). The
+> inline loader checks `location.hostname` and does nothing on the client's own
+> domain, where a feedback button would sit in front of prospects.
+
+WhatConverts loads with `async`, so it no longer blocks first paint.
 
 ```bash
 grep -rln feedbucket --include='*.html' .
@@ -175,9 +183,47 @@ grep -rln feedbucket --include='*.html' .
 
 ---
 
+## SEO and site-level files
+
+| File | Purpose |
+|---|---|
+| `robots.txt` | allows everything and points at the sitemap |
+| `sitemap.xml` | lists the three hero-form pages only |
+| `favicon.ico`, `favicon.png`, `apple-touch-icon.png` | the monogram cropped from the logo |
+| `vercel.json` | trailing-slash URLs, plus cache and CORS headers for fonts |
+| `.vercelignore` | keeps internal files out of the deployment |
+
+- **URLs end in a slash.** `vercel.json` sets `trailingSlash: true`, so
+  `/custom-adu` redirects to `/custom-adu/`. It has to be this way round: the pages
+  use relative paths (`styles.css`, `images/...`), which only resolve inside the
+  folder when the URL ends in a slash.
+- **The hub and the thank-you page stay `noindex, nofollow`.** Do not block them in
+  `robots.txt`: a crawler that cannot fetch a page never sees its `noindex`.
+- **Each landing page carries Open Graph tags and a LocalBusiness JSON-LD block.**
+  The schema holds only what the client publishes (name, phone, town, profiles,
+  and the page's own areas list). It has no street address, hours or ratings; add
+  them only when the client supplies them.
+- **`images/og-image.jpg`** in each page folder is the 1200×630 social card, cut
+  from that page's hero. Regenerate it when the hero changes.
+- **Internal files are not deployed.** `.vercelignore` excludes the source copy
+  draft, `GHL-landings/`, `AGENTS.md` and every `README.md`, so they return 404.
+
+## Performance
+
+- **Fonts are self-hosted.** Each page folder has its own `fonts/` (three variable
+  woff2 files, latin subset) declared in section 0 of `styles.css`, with the two
+  above-the-fold faces preloaded. The hub and thank-you page still use Google
+  Fonts; neither is a landing page.
+- **Hero `-1200` variants are encoded at WebP quality 60.** They sit under a scrim,
+  where the saving is invisible.
+- **`process-crew-800.webp`** is the small-screen variant of the crew photo, chosen
+  through `srcset`. Replace both files together.
+
+---
+
 ## Deployment
 
-Deployed on Vercel as a static site — no framework preset, no build command.
+Deployed on Vercel as a static site: no framework preset, no build command.
 Pushes to `main` deploy to production; pull requests get preview URLs.
 
 ---
