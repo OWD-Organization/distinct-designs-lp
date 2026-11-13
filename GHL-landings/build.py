@@ -53,8 +53,8 @@ HEADER = """<!--
   make this file too large to paste comfortably. To serve them from GHL instead,
   upload the files to the GHL media library and replace that base URL throughout.
 
-  The Feedbucket review widget is stripped out by the build; it is a staging tool
-  and should not run in front of prospects. The WhatConverts tags are kept.
+  WhatConverts, the Google tag, and the Meta pixel are kept. No review widget
+  is included.
 
   The lead form POSTs JSON to a GoHighLevel inbound webhook. The URL is the
   LEAD_WEBHOOK_URL constant in the script at the bottom of this file.
@@ -87,13 +87,12 @@ def build(src_dir, out_dir, out_name, label):
     assert html.count(link) == 1, f"{src_dir}: stylesheet link not found once"
     html = html.replace(link, "<style>\n" + css.rstrip() + "\n</style>")
 
-    tag = '<script src="script.js"></script>'
-    assert html.count(tag) == 1, f"{src_dir}: script tag not found once"
-    html = html.replace(tag, "<script>\n" + js.rstrip() + "\n</script>")
+    tag_re = re.compile(r'<script src="script.js"(?: defer)?></script>')
+    assert len(tag_re.findall(html)) == 1, f"{src_dir}: script tag not found once"
+    html = tag_re.sub("<script>\n" + js.rstrip() + "\n</script>", html, count=1)
 
-    fb = re.search(r"\n<!-- Feedbucket.*?</script>\n", html, re.S)
-    assert fb, f"{src_dir}: Feedbucket block not found"
-    html = html[: fb.start()] + "\n" + html[fb.end():]
+    html = re.sub(r"\n<!-- Feedbucket.*?</script>\n", "\n", html, count=1, flags=re.S)
+    assert "feedbucket" not in html.lower(), f"{src_dir}: Feedbucket still present"
 
     html = re.sub(r'(src|srcset)="images/', lambda m: f'{m.group(1)}="{IMAGE_BASE}', html)
     html = re.sub(r"(\d+w, )images/", lambda m: m.group(1) + IMAGE_BASE, html)
@@ -111,7 +110,6 @@ def build(src_dir, out_dir, out_name, label):
     html = html.replace('url("fonts/', f'url("{FONT_BASE}')
     assert '"fonts/' not in html, f"{src_dir}: a relative font path survived"
 
-    # The review widget must be gone; the header comment naming it is fine.
     body = html[html.index("<body"):]
     assert "feedbucket" not in body.lower(), f"{src_dir}: Feedbucket still in body"
 

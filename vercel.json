@@ -1,6 +1,13 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "trailingSlash": true,
+  "redirects": [
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/custom-home-build-hero-form/index.html", "destination": "/custom-home-build-hero-form/", "permanent": true },
+    { "source": "/whole-home-remodel-hero-form/index.html", "destination": "/whole-home-remodel-hero-form/", "permanent": true },
+    { "source": "/custom-adu-hero-form/index.html", "destination": "/custom-adu-hero-form/", "permanent": true },
+    { "source": "/thank-you/index.html", "destination": "/thank-you/", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/(.*)/fonts/(.*)",

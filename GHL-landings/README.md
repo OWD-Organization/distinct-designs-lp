@@ -58,8 +58,8 @@ Without that header a browser refuses a font loaded from another origin.
 
 ## What the build changes
 
-- **Feedbucket is stripped.** It is a staging review widget and should not run in
-  front of prospects.
+- **No review widget is included.** The source pages do not load one, and the
+  build fails if that script shows up in the generated file.
 - **WhatConverts is kept**, so call and form tracking still works. It rewrites the
   displayed phone number at runtime for attribution, which is why the number on
   screen differs from the one in the markup.

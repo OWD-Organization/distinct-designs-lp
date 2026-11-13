@@ -94,8 +94,12 @@ the source-copy file exist only to disambiguate the three articles in one docume
 - **URLs end in a slash** (`trailingSlash: true` in `vercel.json`). Never flip it: the
   pages use relative asset paths that break on a slashless URL.
 - **Each landing page is self-canonical** on
-  `https://go.distinctdesignsconstruction.com/<slug>-hero-form/`, and `sitemap.xml`
-  lists those three URLs. The hub and thank-you page stay `noindex` and must not be blocked in
+  `https://distinct-designs-construction.vercel.app/<slug>-hero-form/`, and `sitemap.xml`
+  lists those three URLs. `go.distinctdesignsconstruction.com` is the intended future
+  host, but it has no DNS, so do not point canonicals at it until it resolves.
+  Do not add or remove `noindex` on the three landing pages: the client still has to
+  choose between leaving them indexable and `noindex` plus a canonical to the main
+  site `/services/` pages. The hub and thank-you page stay `noindex` and must not be blocked in
   `robots.txt`.
 - **LocalBusiness JSON-LD carries only client-published facts.** Do not add an address,
   hours, ratings or prices that the client has not supplied.
@@ -104,6 +108,6 @@ the source-copy file exist only to disambiguate the three articles in one docume
 - **Fonts are self-hosted per page folder** (`fonts/`, declared in section 0 of
   `styles.css`). Do not reintroduce a render-blocking third-party stylesheet or a
   synchronous script in `<head>`.
-- **Feedbucket loads only on `*.vercel.app` and `localhost`**, gated by hostname.
+- **Do not add Feedbucket.** The review widget was removed from every page.
 - **Everything committed to this repository is written in English**: code, comments,
   documentation and commit messages.

@@ -31,9 +31,10 @@ form in the closing section. The standard pages were removed; the folders keep t
   a button back up to the form.
 - The hero CTA row has no "Schedule a Consultation" button, since it would scroll to
   a form already on screen. The call button stays.
-- Each page is self-canonical on the live domain:
-  `https://go.distinctdesignsconstruction.com/<slug>-hero-form/`. The same three
-  URLs are the only ones in `sitemap.xml`.
+- Each page is self-canonical on the host that currently serves it:
+  `https://distinct-designs-construction.vercel.app/<slug>-hero-form/`. The same
+  three URLs are the only ones in `sitemap.xml`. `go.distinctdesignsconstruction.com`
+  is the intended future host, but it has no DNS yet, so canonicals do not use it.
 - The hero-form CSS lives in section 9.b of the shared stylesheet. All three
   stylesheets are byte-identical.
 
@@ -164,22 +165,16 @@ for exact slot dimensions.
 
 ## Third-party scripts
 
-Both live in each landing page's `<head>`. The hub carries neither.
+WhatConverts lives in each landing page's `<head>`. The hub carries no tags.
+The Google tag and the Meta pixel are on the three landing pages and on
+`thank-you/`. There is no review widget.
 
 | Script | Purpose | Notes |
 |---|---|---|
 | WhatConverts (`174814`) | call and form lead tracking | reads URL, referrer, query and hash |
-| Feedbucket (`87QNN1OkJMjb4UmrA33d`) | visual review widget | **review only** |
 
-> **Feedbucket only loads on review hosts** (`*.vercel.app` and `localhost`). The
-> inline loader checks `location.hostname` and does nothing on the client's own
-> domain, where a feedback button would sit in front of prospects.
-
-WhatConverts loads with `async`, so it no longer blocks first paint.
-
-```bash
-grep -rln feedbucket --include='*.html' .
-```
+WhatConverts loads with `async`, so it no longer blocks first paint. Page
+behavior lives in `script.js`, loaded with `defer`.
 
 ---
 
@@ -190,13 +185,17 @@ grep -rln feedbucket --include='*.html' .
 | `robots.txt` | allows everything and points at the sitemap |
 | `sitemap.xml` | lists the three hero-form pages only |
 | `favicon.ico`, `favicon.png`, `apple-touch-icon.png` | the monogram cropped from the logo |
-| `vercel.json` | trailing-slash URLs, plus cache and CORS headers for fonts |
+| `vercel.json` | trailing-slash URLs, `index.html` duplicate redirects, plus cache and CORS headers for fonts |
 | `.vercelignore` | keeps internal files out of the deployment |
 
 - **URLs end in a slash.** `vercel.json` sets `trailingSlash: true`, so
-  `/custom-adu` redirects to `/custom-adu/`. It has to be this way round: the pages
-  use relative paths (`styles.css`, `images/...`), which only resolve inside the
-  folder when the URL ends in a slash.
+  `/custom-adu-hero-form` redirects to `/custom-adu-hero-form/`. It has to be this
+  way round: the pages use relative paths (`styles.css`, `images/...`), which only
+  resolve inside the folder when the URL ends in a slash.
+- **`index.html` copies redirect to the directory URL.** `/custom-home-build-hero-form/index.html`,
+  `/whole-home-remodel-hero-form/index.html`, `/custom-adu-hero-form/index.html`,
+  `/thank-you/index.html`, and `/index.html` are the same documents as the slash
+  URLs, so `vercel.json` sends each one to its slash URL.
 - **The hub and the thank-you page stay `noindex, nofollow`.** Do not block them in
   `robots.txt`: a crawler that cannot fetch a page never sees its `noindex`.
 - **Each landing page carries Open Graph tags and a LocalBusiness JSON-LD block.**

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://go.distinctdesignsconstruction.com/sitemap.xml
+Sitemap: https://distinct-designs-construction.vercel.app/sitemap.xml
